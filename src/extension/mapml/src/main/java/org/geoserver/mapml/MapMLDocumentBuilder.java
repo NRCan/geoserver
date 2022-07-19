@@ -161,9 +161,8 @@ public class MapMLDocumentBuilder {
             if (layerGroupInfo == null) {
                 try {
                     response.sendError(
-                            HttpServletResponse.SC_NOT_FOUND,
-                            "Invalid layer or layer group name: " + layer);
-                    throw new RuntimeException("Invalid layer or layer group name: " + layer);
+                            HttpServletResponse.SC_NOT_FOUND, "Invalid layer or layer group name");
+                    throw new RuntimeException("Invalid layer or layer group name");
                 } catch (IOException ioe) {
                 }
                 return;
@@ -194,14 +193,14 @@ public class MapMLDocumentBuilder {
             projType = ProjType.fromValue(proj.toUpperCase());
         } catch (IllegalArgumentException iae) {
             try {
-                response.sendError(
-                        HttpServletResponse.SC_BAD_REQUEST, "Invalid TCRS name: " + proj);
-                throw new RuntimeException("Invalid TCRS name: " + proj);
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid TCRS name");
+                throw new RuntimeException("Invalid TCRS name");
             } catch (IOException ioe) {
             }
             return;
         }
-        styleName = style.orElse("");
+        styleName =
+                geoServer.getCatalog().getStyleByName(style.orElse("")) != null ? style.get() : "";
         imageFormat = format.orElse("image/png");
         baseUrl =
                 ResponseUtils.buildURL(
