@@ -510,6 +510,8 @@ public class MapMLDocumentBuilder {
         String path = "gwc/service/wmts";
         HashMap<String, String> params = new HashMap<>();
         params.put("layer", (workspace.isEmpty() ? "" : workspace + ":") + layerName);
+        // doesn't work, geoserver's wmts gettile doesn't support language
+        // params.put("language", this.request.getLocale().getLanguage());
         params.put("style", styleName);
         params.put("tilematrixset", projType.value());
         params.put("service", "WMTS");
@@ -626,6 +628,7 @@ public class MapMLDocumentBuilder {
         params.put("request", "GetMap");
         params.put("crs", previewTcrsMap.get(projType.value()).getCode());
         params.put("layers", layerName);
+        params.put("language", this.request.getLocale().getLanguage());
         params.put("styles", styleName);
         if (timeEnabled) {
             params.put("time", "{time}");
@@ -774,6 +777,7 @@ public class MapMLDocumentBuilder {
         params.put("bbox", "{xmin},{ymin},{xmax},{ymax}");
         params.put("format", imageFormat);
         params.put("transparent", Boolean.toString(isTransparent));
+        params.put("language", this.request.getLocale().getLanguage());
         params.put("width", "{w}");
         params.put("height", "{h}");
         String urlTemplate = "";
@@ -823,6 +827,8 @@ public class MapMLDocumentBuilder {
         params.put("request", "GetFeatureInfo");
         params.put("feature_count", "50");
         params.put("format", imageFormat);
+        // does this work?
+        params.put("language", this.request.getLocale().getLanguage());
         params.put("style", styleName);
         params.put("infoformat", "text/mapml");
         params.put("i", "{i}");
@@ -871,6 +877,8 @@ public class MapMLDocumentBuilder {
         params.put("request", "GetFeatureInfo");
         params.put("feature_count", "50");
         params.put("crs", previewTcrsMap.get(projType.value()).getCode());
+        // does this work?  We should do something with featurecaption if so...
+        params.put("language", this.request.getLocale().getLanguage());
         params.put("layers", layerName);
         params.put("query_layers", layerName);
         params.put("styles", styleName);
