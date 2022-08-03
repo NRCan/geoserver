@@ -510,8 +510,6 @@ public class MapMLDocumentBuilder {
         String path = "gwc/service/wmts";
         HashMap<String, String> params = new HashMap<>();
         params.put("layer", (workspace.isEmpty() ? "" : workspace + ":") + layerName);
-        // doesn't work, geoserver's wmts gettile doesn't support language
-        // params.put("language", this.request.getLocale().getLanguage());
         params.put("style", styleName);
         params.put("tilematrixset", projType.value());
         params.put("service", "WMTS");
@@ -827,8 +825,6 @@ public class MapMLDocumentBuilder {
         params.put("request", "GetFeatureInfo");
         params.put("feature_count", "50");
         params.put("format", imageFormat);
-        // does this work?
-        params.put("language", this.request.getLocale().getLanguage());
         params.put("style", styleName);
         params.put("infoformat", "text/mapml");
         params.put("i", "{i}");
@@ -877,7 +873,6 @@ public class MapMLDocumentBuilder {
         params.put("request", "GetFeatureInfo");
         params.put("feature_count", "50");
         params.put("crs", previewTcrsMap.get(projType.value()).getCode());
-        // does this work?  We should do something with featurecaption if so...
         params.put("language", this.request.getLocale().getLanguage());
         params.put("layers", layerName);
         params.put("query_layers", layerName);
